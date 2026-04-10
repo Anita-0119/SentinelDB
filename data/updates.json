@@ -1,0 +1,26 @@
+[
+    {
+        "instance": "localhost",
+        "current_version": "15.0.2000.5",
+        "latest_version": "15.0.4316.3",
+        "patch_available": true,
+        "patch_name": "SQL Server 2019 CU28",
+        "severity": "High"
+    },
+    {
+        "instance": "prod-sql-01",
+        "current_version": "16.0.1000.6",
+        "latest_version": "16.0.1000.6",
+        "patch_available": false,
+        "patch_name": "Up to date",
+        "severity": "None"
+    },
+    {
+        "instance": "prod-sql-02",
+        "current_version": "14.0.1000.169",
+        "latest_version": "14.0.3421.10",
+        "patch_available": true,
+        "patch_name": "SQL Server 2017 CU31",
+        "severity": "Critical"
+    }
+]

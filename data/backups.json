@@ -1,0 +1,38 @@
+[
+    {
+        "instance": "localhost",
+        "db": "HR_Data",
+        "type": "LOG",
+        "date": "10:00 AM",
+        "target": "F:\\Backups\\HR_Log.trn",
+        "status": "CRITICAL",
+        "errorCode": "SPACE"
+    },
+    {
+        "instance": "localhost",
+        "db": "Sales_Prod",
+        "type": "FULL",
+        "date": "Yesterday, 01:00 AM",
+        "target": "F:\\Backups\\Sales.bak",
+        "status": "HEALTHY",
+        "errorCode": null
+    },
+    {
+        "instance": "prod-sql-01",
+        "db": "Finance_DB",
+        "type": "FULL",
+        "date": "Today, 02:00 AM",
+        "target": "\\\\SAN01\\Backups\\Finance.bak",
+        "status": "HEALTHY",
+        "errorCode": null
+    },
+    {
+        "instance": "prod-sql-02",
+        "db": "Legacy_Sys",
+        "type": "FULL",
+        "date": "2023-10-01",
+        "target": "C:\\Old_Bkp\\Legacy.bak",
+        "status": "CRITICAL",
+        "errorCode": "VLF"
+    }
+]

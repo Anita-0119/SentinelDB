@@ -1,0 +1,17 @@
+[
+    {
+        "id": "localhost",
+        "name": "Localhost (Dev)",
+        "status": "ONLINE"
+    },
+    {
+        "id": "prod-sql-01",
+        "name": "PROD-SQL-01",
+        "status": "ONLINE"
+    },
+    {
+        "id": "prod-sql-02",
+        "name": "PROD-SQL-02",
+        "status": "WARNING"
+    }
+]
