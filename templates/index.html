@@ -26,6 +26,8 @@
         .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
         .drilldown-active { box-shadow: 0 0 0 1px #144A7C inset, 0 0 0 2px #144A7C !important; border-color: transparent !important; }
+        /* Add responsive wrapping for terminal */
+        #terminal { word-wrap: break-word; overflow-wrap: break-word; }
     </style>
 </head>
 <body class="bg-jadeLight dark:bg-jadeDark text-slate-800 dark:text-slate-200 h-screen overflow-hidden flex text-sm">
@@ -50,9 +52,18 @@
         </div>
     </div>
 
-    <div id="itsm-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center"><div class="bg-white dark:bg-slate-800 border border-jadeBorder dark:border-slate-600 p-6 rounded shadow-xl w-full max-w-2xl"><div class="flex justify-between items-center mb-4 border-b border-jadeBorder dark:border-slate-600 pb-2"><h2 class="text-lg font-semibold">Incident Report Generated</h2><button onclick="document.getElementById('itsm-modal').classList.add('hidden')" class="text-slate-500 hover:text-red-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div id="itsm-content" class="text-xs font-mono whitespace-pre-wrap bg-slate-50 dark:bg-slate-900 p-4 border border-jadeBorder dark:border-slate-700 h-64 overflow-y-auto custom-scroll">INCIDENT TICKET: INC-994821 | SEVERITY: SEV-1 | TIMESTAMP: [AUTO-GENERATED]\n-------------------------------------------------------------------------\n1. INCIDENT DETECTED: Anomaly identified by Sentinel AI Monitoring.\n2. ROOT CAUSE ANALYSIS: Correlated telemetry isolated the root cause.\n3. AUTONOMOUS ACTION: Agent selected and executed remediation skill.\n4. HUMAN IN THE LOOP: Authorized by Admin.\n5. VERIFICATION: Telemetry confirms system returned to baseline.\n6. STATUS: RESOLVED. Ticket auto-closed.</div><div class="mt-4 flex justify-end"><button onclick="document.getElementById('itsm-modal').classList.add('hidden')" class="bg-jadeBlue hover:bg-[#0D3153] text-white px-6 py-2 rounded text-sm font-semibold shadow-sm">Download (.txt)</button></div></div></div>
-    <div id="backup-rec-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm"><div class="bg-white dark:bg-slate-800 border border-jadeBorder dark:border-slate-600 p-6 rounded shadow-xl w-full max-w-xl"><div class="flex justify-between items-center mb-4 border-b border-jadeBorder dark:border-slate-600 pb-2"><h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2"><span>⚠️</span> Backup Failure Diagnostics</h2><button onclick="document.getElementById('backup-rec-modal').classList.add('hidden')" class="text-slate-500 hover:text-red-500 font-bold"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div class="space-y-4"><p class="text-sm text-gray-800 dark:text-gray-200"><strong>Root Cause Analysis:</strong> <span id="rec-reason"></span></p><div class="mt-2"><strong class="text-sm text-gray-800 dark:text-gray-200">Suggested Action Plan:</strong><ul id="rec-steps" class="list-decimal pl-5 mt-1 text-sm text-gray-700 dark:text-gray-300"></ul></div><div class="mt-4"><strong class="text-sm text-gray-800 dark:text-gray-200">Remediation Script:</strong><pre class="bg-gray-800 text-green-400 p-3 rounded mt-2 text-xs overflow-x-auto"><code id="rec-script"></code></pre><button class="mt-3 bg-jadeBlue hover:bg-jadeDark text-white text-xs font-bold py-2 px-4 rounded transition-colors w-full">Run Script via Copilot</button></div></div></div></div>
-    <div id="autofix-detail-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm"><div class="bg-white dark:bg-slate-800 border border-jadeBorder dark:border-slate-600 p-6 rounded shadow-xl w-full max-w-xl"><div class="flex justify-between items-center mb-4 border-b border-jadeBorder dark:border-slate-600 pb-2"><h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">Auto-Fix Context & Diagnostics</h2><button onclick="document.getElementById('autofix-detail-modal').classList.add('hidden')" class="text-slate-500 hover:text-red-500 font-bold"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div><div class="space-y-4"><div><h3 class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Detected Issue</h3><div id="autofix-issue" class="text-xs bg-red-50 dark:bg-red-900/10 text-red-600 dark:text-red-400 p-3 rounded border border-red-200 dark:border-red-800"></div></div><div><h3 class="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-1">Agent Remediation Executed</h3><div id="autofix-remediation" class="text-xs bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400 p-3 rounded border border-emerald-200 dark:border-emerald-800 font-mono"></div></div></div></div></div>
+    <div id="itsm-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center">
+        <div class="bg-white dark:bg-slate-800 border border-jadeBorder dark:border-slate-600 p-6 rounded shadow-xl w-full max-w-2xl">
+            <div class="flex justify-between items-center mb-4 border-b border-jadeBorder dark:border-slate-600 pb-2">
+                <h2 class="text-lg font-semibold">Incident Report Generated</h2>
+                <button onclick="document.getElementById('itsm-modal').classList.add('hidden')" class="text-slate-500 hover:text-red-500"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div id="itsm-content" class="text-xs font-mono whitespace-pre-wrap bg-slate-50 dark:bg-slate-900 p-4 border border-jadeBorder dark:border-slate-700 h-64 overflow-y-auto custom-scroll">INCIDENT TICKET: INC-994821 | SEVERITY: SEV-1 | TIMESTAMP: [AUTO-GENERATED]\n-------------------------------------------------------------------------\n1. INCIDENT DETECTED: Anomaly identified by Sentinel AI Monitoring.\n2. ROOT CAUSE ANALYSIS: Correlated telemetry isolated the root cause.\n3. AUTONOMOUS ACTION: Agent selected and executed remediation skill.\n4. HUMAN IN THE LOOP: Authorized by Admin.\n5. VERIFICATION: Telemetry confirms system returned to baseline.\n6. STATUS: RESOLVED. Ticket auto-closed.</div>
+            <div class="mt-4 flex justify-end">
+                <button onclick="document.getElementById('itsm-modal').classList.add('hidden')" class="bg-jadeBlue hover:bg-[#0D3153] text-white px-6 py-2 rounded text-sm font-semibold shadow-sm">Download (.txt)</button>
+            </div>
+        </div>
+    </div>
 
     <aside id="main-sidebar" class="w-64 flex-shrink-0 border-r border-jadeBorder dark:border-slate-700 bg-white dark:bg-slate-800 flex flex-col h-full z-40 transition-all duration-300">
         <div class="p-4 border-b border-jadeBorder dark:border-slate-700 flex items-center gap-2">
@@ -60,18 +71,15 @@
         </div>
         <nav class="flex-1 py-2 overflow-y-auto custom-scroll">
             <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider px-4 mt-2 mb-1">Monitoring</p>
-            
             <button onclick="switchView('dashboard')" id="nav-dashboard" class="sidebar-item sidebar-active w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg> System Overview
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v-2z"></path></svg> System Overview
             </button>
-            
             <div class="bg-slate-50 dark:bg-slate-800/60 border-y border-jadeBorder dark:border-slate-700/50 py-2 mt-1 mb-2">
                 <div id="sidebar-instance-list" class="flex flex-col"></div>
                 <button onclick="document.getElementById('add-instance-modal').classList.remove('hidden')" class="w-full flex items-center gap-2 px-10 py-1.5 text-xs text-jadeBlue dark:text-jadeLight hover:bg-jadeLight dark:hover:bg-slate-700 transition-colors font-semibold mt-1">
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Add Instance
                 </button>
             </div>
-
             <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider px-4 mt-6 mb-1">Administration</p>
             <button onclick="switchView('jobs')" id="nav-jobs" class="sidebar-item w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Agent Jobs</button>
             <button onclick="switchView('backups')" id="nav-backups" class="sidebar-item w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg> Backups</button>
@@ -89,7 +97,7 @@
                 <span id="header-instance-badge" class="hidden text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-1 rounded border border-slate-200 dark:border-slate-600 uppercase tracking-widest"></span>
             </div>
             <div id="global-status" class="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 px-4 py-1.5 border border-emerald-200 dark:border-emerald-800 rounded shadow-sm transition-colors">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_4px_rgba(16,185,129,0.6)]"></span> ALL SYSTEMS OPERATIONAL
+                <span id="status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <span id="status-text">ALL SYSTEMS OPERATIONAL</span>
             </div>
         </header>
 
@@ -101,11 +109,11 @@
                 </div>
                 <div onclick="showDrilldown('disk')" id="card-disk" class="bg-white dark:bg-slate-800 p-6 border border-gray-200 dark:border-slate-700 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between min-h-[13rem]">
                     <div class="flex justify-between items-start gap-2 mb-4 min-h-[3.5rem]"><span class="text-sm font-bold text-gray-600 dark:text-gray-300 tracking-tight leading-tight">Volume Capacity<br><span class="text-xs text-gray-500 font-normal">(F:)</span></span><button onclick="event.stopPropagation(); triggerAnomaly('disk')" class="text-xs text-jadeBlue dark:text-jadeLight opacity-80 hover:opacity-100 hover:underline shrink-0">Simulate</button></div>
-                    <div class="mt-auto"><div id="metric-disk" class="text-5xl font-light text-jadeBlue mb-3 transition-colors tracking-tight">125 GB</div><div class="text-xs text-gray-500 dark:text-gray-400 flex flex-col gap-0.5"><span>Threshold State:</span><span class="text-emerald-600 font-bold">Optimal</span></div></div>
+                    <div class="mt-auto"><div id="metric-disk" class="text-5xl font-light text-jadeBlue mb-3 transition-colors tracking-tight">125 GB</div><div class="text-xs text-gray-500 dark:text-gray-400 flex flex-col gap-0.5"><span>Threshold State:</span><span id="disk-status-label" class="text-emerald-600 font-bold">Optimal</span></div></div>
                 </div>
                 <div onclick="showDrilldown('tempdb')" id="card-tempdb" class="bg-white dark:bg-slate-800 p-6 border border-gray-200 dark:border-slate-700 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between min-h-[13rem]">
                     <div class="flex justify-between items-start gap-2 mb-4 min-h-[3.5rem]"><span class="text-sm font-bold text-gray-600 dark:text-gray-300 tracking-tight leading-tight">TempDB Allocation</span><button onclick="event.stopPropagation(); triggerAnomaly('tempdb')" class="text-xs text-jadeBlue dark:text-jadeLight opacity-80 hover:opacity-100 hover:underline shrink-0">Simulate</button></div>
-                    <div class="mt-auto"><div id="metric-tempdb" class="text-5xl font-light text-gray-800 dark:text-slate-100 mb-4 transition-colors tracking-tight">15%</div><div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div class="bg-jadeDark dark:bg-jadeBlue h-full transition-all duration-500" style="width: 15%"></div></div></div>
+                    <div class="mt-auto"><div id="metric-tempdb" class="text-5xl font-light text-gray-800 dark:text-slate-100 mb-4 transition-colors tracking-tight">15%</div><div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden"><div id="tempdb-bar" class="bg-jadeDark dark:bg-jadeBlue h-full transition-all duration-500" style="width: 15%"></div></div></div>
                 </div>
                 <div onclick="showDrilldown('index')" id="card-index" class="bg-white dark:bg-slate-800 p-6 border border-gray-200 dark:border-slate-700 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer relative flex flex-col justify-between min-h-[13rem]">
                     <div class="flex justify-between items-start gap-2 mb-4 min-h-[3.5rem]"><span class="text-sm font-bold text-gray-600 dark:text-gray-300 tracking-tight leading-tight">Max Fragmentation</span><button onclick="event.stopPropagation(); triggerAnomaly('index')" class="text-xs text-jadeBlue dark:text-jadeLight opacity-80 hover:opacity-100 hover:underline shrink-0">Simulate</button></div>
@@ -154,7 +162,7 @@
                 </div>
                 <div class="overflow-x-auto h-96 custom-scroll">
                     <table class="w-full text-left text-xs whitespace-nowrap">
-                        <thead class="border-b border-jadeBorder dark:border-slate-700 bg-jadeLight dark:bg-slate-900 sticky top-0"><tr><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Instance</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Database</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Type</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Date</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Target Location</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Status</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Action</th></tr></thead>
+                        <thead class="border-b border-jadeBorder dark:border-slate-700 bg-jadeLight dark:bg-slate-900 sticky top-0"><tr><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Instance</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Database</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Type</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Date</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Target</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Status</th><th class="px-4 py-2 font-bold text-slate-800 dark:text-slate-200">Action</th></tr></thead>
                         <tbody id="backups-body" class="divide-y divide-jadeLight dark:divide-slate-700"></tbody>
                     </table>
                 </div>
@@ -197,12 +205,12 @@
 
             <div class="flex-shrink-0 border-b border-jadeBorder dark:border-slate-700 bg-white dark:bg-slate-800 p-4 transition-all z-10 shadow-sm">
                 <h3 class="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2">Decision Queue</h3>
-                <div id="hitl-queue" class="w-full flex flex-col items-center justify-center text-center min-h-[60px] max-h-[300px] overflow-y-auto custom-scroll pr-1"><p class="text-slate-400 text-xs">No pending approvals.</p></div>
+                <div id="hitl-queue" class="w-full flex flex-col items-center justify-center text-center min-h-[60px] max-h-[300px] overflow-y-auto custom-scroll pr-1"><p class="text-slate-400 text-xs">Awaiting telemetry signal...</p></div>
             </div>
 
-            <div class="flex-1 flex flex-col text-[#d4d4d4] font-mono text-xs min-h-0">
-                <div id="terminal" class="p-3 flex-1 overflow-y-auto custom-scroll space-y-1"><div class="text-[#6a9955]">// Sentinel Engine Ready</div></div>
-                <div class="p-2 border-t border-[#333] flex items-center bg-[#252526] shrink-0"><span class="text-[#569cd6] mr-2">></span><input type="text" id="terminal-input" onkeypress="handleTerminalInput(event)" class="bg-transparent border-none outline-none text-[#ce9178] w-full" placeholder="Input query..."></div>
+            <div class="flex-1 flex flex-col text-[#d4d4d4] font-mono text-xs min-h-0 bg-[#0d1117] border-t border-slate-800">
+                <div id="terminal" class="p-3 flex-1 overflow-y-auto custom-scroll space-y-1"><div class="text-[#6a9955]">// Sentinel Engine Operational</div></div>
+                <div class="p-2 border-t border-slate-800 flex items-center bg-[#161b22] shrink-0"><span class="text-jadeBlue font-bold mr-2">AGENT></span><input type="text" id="terminal-input" onkeypress="handleTerminalInput(event)" class="bg-transparent border-none outline-none text-jadeGold w-full" placeholder="Input query..."></div>
             </div>
         </div>
     </aside>
@@ -211,166 +219,129 @@
 
     <script>
         const socket = io();
-        
-        let allBackupsData = [];
-        let allUpdatesData = [];
-        let currentInstanceId = 'ALL';
-        let currentInstanceName = 'All Instances';
+        let allBackupsData = [], allUpdatesData = [], currentSelectedInstanceId = 'ALL', currentTelemetry = null, copilotState = 'default';
 
-        // --- Fetch & Manage Instances ---
+        // --- Live Socket Metrics ---
+        socket.on('telemetry_update', (data) => {
+            if (!currentTelemetry && (currentSelectedInstanceId === 'ALL' || data.instance_id === currentSelectedInstanceId)) {
+                document.getElementById('metric-cpu').innerText = `${data.cpu}%`;
+                document.getElementById('metric-disk').innerText = `${data.disk} GB`;
+                document.getElementById('metric-tempdb').innerText = `${data.tempdb}%`;
+                document.getElementById('metric-block').innerText = data.blocks || 0;
+                const bar = document.getElementById('tempdb-bar');
+                if (bar) bar.style.width = `${data.tempdb}%`;
+            }
+        });
+
+        socket.on('jobs_update', (jobs) => {
+            const body = document.getElementById('jobs-body');
+            body.innerHTML = jobs.map(j => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50 transition-colors"><td class="px-6 py-4 font-bold text-jadeBlue">${j.name}</td><td class="px-6 py-4 text-slate-500 font-medium">${j.cat}</td><td class="px-6 py-4 text-slate-400 font-mono text-[10px]">${j.last}</td><td class="px-6 py-4 text-slate-400 font-mono text-[10px]">${j.next}</td><td class="px-6 py-4"><span class="px-2 py-0.5 text-[9px] font-black rounded-full tracking-tighter ${badge(j.out)}">${j.out.toUpperCase()}</span></td></tr>`).join('');
+        });
+
+        socket.on('audit_log_push', (log) => {
+            const body = document.getElementById('audit-body');
+            const row = `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50 transition-colors animate-pulse"><td class="px-4 py-3 font-mono text-[10px] text-slate-500 italic">${log.time}</td><td class="px-4 py-3 font-semibold text-jadeBlue tracking-tight">${log.target}</td><td class="px-4 py-3 text-slate-600 dark:text-slate-300 font-medium text-[11px]">${log.anomaly}</td><td class="px-4 py-3 font-black text-emerald-600 dark:text-emerald-500 text-[10px] uppercase tracking-tighter">Resolved</td><td class="px-4 py-3 text-center"><button class="text-[9px] text-jadeBlue hover:underline font-black bg-jadeBlue/5 dark:bg-jadeBlue/10 px-2 py-1 rounded uppercase">Deep Dive</button></td></tr>`;
+            body.insertAdjacentHTML('afterbegin', row);
+        });
+
+        socket.on('log', function(msg) { logTerminal(msg.data); });
+
+        // --- Instance Management ---
         async function fetchInstances() {
             const res = await fetch('/api/instances');
             const data = await res.json();
-            
             const list = document.getElementById('sidebar-instance-list');
-            list.innerHTML = `<button onclick="selectInstance('ALL', 'All Instances')" id="inst-ALL" class="w-full text-left px-10 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-jadeLight dark:hover:bg-slate-700 transition-colors instance-active">All Instances</button>`;
-            
-            data.forEach(inst => {
-                list.innerHTML += `<button onclick="selectInstance('${inst.id}', '${inst.name}')" id="inst-${inst.id}" class="w-full text-left px-10 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-jadeLight dark:hover:bg-slate-700 transition-colors">${inst.name}</button>`;
-            });
+            list.innerHTML = `<button onclick="selectInstance('ALL', 'All Instances')" id="inst-ALL" class="w-full text-left px-10 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-jadeLight dark:hover:bg-slate-700 instance-active">All Instances</button>` + 
+                data.map(i => `<button onclick="selectInstance('${i.id}', '${i.name}')" id="inst-${i.id}" class="w-full text-left px-10 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:bg-jadeLight dark:hover:bg-slate-700">${i.name}</button>`).join('');
         }
 
         async function saveNewInstance() {
-            const id = document.getElementById('new-inst-id').value;
-            const name = document.getElementById('new-inst-name').value;
-            if(!id || !name) return;
-
-            await fetch('/api/instances', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: id, name: name, status: 'ONLINE' }) });
-
+            const id = document.getElementById('new-inst-id').value, n = document.getElementById('new-inst-name').value;
+            if(!id || !n) return;
+            await fetch('/api/instances', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({id, name: n, status: 'ONLINE'}) });
             document.getElementById('add-instance-modal').classList.add('hidden');
-            document.getElementById('new-inst-id').value = '';
-            document.getElementById('new-inst-name').value = '';
             fetchInstances();
         }
 
         function selectInstance(id, name) {
-            currentInstanceId = id;
-            currentInstanceName = name;
-            
+            currentSelectedInstanceId = id;
             document.querySelectorAll('[id^=inst-]').forEach(btn => btn.classList.remove('instance-active'));
-            document.getElementById(`inst-${id}`).classList.add('instance-active');
-
+            document.getElementById(`inst-${id}`)?.classList.add('instance-active');
             const badge = document.getElementById('header-instance-badge');
             if(id === 'ALL') badge.classList.add('hidden');
             else { badge.innerText = name; badge.classList.remove('hidden'); }
-            
-            refreshAllData();
+            logTerminal(`// Focused context: ${name}`);
         }
 
-        async function fetchBackupsData() {
-            const res = await fetch('/api/backups');
-            allBackupsData = await res.json();
-            renderBackups();
+        // --- Agentic Flows ---
+        async function triggerAnomaly(type) {
+            resizeCopilot('restore'); setStep(0);
+            logTerminal(`// Initiating Agentic Observation: ${type.toUpperCase()}`);
+            const simRes = await fetch(`/api/simulate/${type}`, { method: 'POST' });
+            const { telemetry } = await simRes.json();
+            currentTelemetry = telemetry;
+
+            updateGlobalStatus(true);
+            if(type === 'cpu') document.getElementById('metric-cpu').classList.add('text-red-500');
+            else if(type === 'disk') document.getElementById('metric-disk').classList.add('text-red-500');
+
+            setStep(1);
+            const reasonRes = await fetch('/api/reason', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ telemetry }) });
+            const decision = await reasonRes.json();
+
+            if (decision.success) {
+                document.getElementById('hitl-queue').innerHTML = `
+                    <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 p-4 rounded-lg w-full text-left shadow-sm animate-pulse">
+                        <p class="text-[9px] font-black text-amber-800 dark:text-amber-500 uppercase tracking-widest mb-1">Decision Required</p>
+                        <p class="text-[11px] text-slate-800 dark:text-slate-200 font-bold mb-3">${decision.recommended_skill}</p>
+                        <button onclick="approveAction('${decision.recommended_skill}', '${decision.recommended_params}')" class="bg-jadeBlue hover:bg-jadeDark text-white px-3 py-2 rounded font-black text-[10px] w-full transition-all uppercase shadow-md">Approve & Execute</button>
+                    </div>`;
+            }
         }
 
-        async function fetchUpdatesData() {
-            const res = await fetch('/api/updates');
-            allUpdatesData = await res.json();
-            renderUpdates();
+        function approveAction(skill, params) {
+            setStep(2);
+            socket.emit('execute-skill', { skill, params });
+            document.getElementById('hitl-queue').innerHTML = '<p class="text-amber-600 animate-pulse text-[10px] font-black uppercase">Remediating...</p>';
+            setTimeout(() => {
+                setStep(3); currentTelemetry = null; resetUI(); updateGlobalStatus(false);
+                document.getElementById('hitl-queue').innerHTML = '<p class="text-emerald-500 text-[10px] font-black uppercase">✓ Resolution Verified</p>';
+            }, 6000);
         }
 
-        function refreshAllData() { renderBackups(); renderUpdates(); }
-
-        window.onload = () => { fetchInstances(); fetchBackupsData(); fetchUpdatesData(); };
-
-        function switchView(viewId) {
+        // --- View Switching ---
+        function switchView(v) {
             ['dashboard', 'jobs', 'backups', 'updates'].forEach(id => {
-                const viewEl = document.getElementById(`view-${id}`);
-                const navEl = document.getElementById(`nav-${id}`);
-                if (viewEl) viewEl.classList.add('hidden');
-                if (navEl) navEl.classList.remove('sidebar-active');
+                const el = document.getElementById(`view-${id}`), nav = document.getElementById(`nav-${id}`);
+                if(el) el.classList.add('hidden'); if(nav) nav.classList.remove('sidebar-active');
             });
-            document.getElementById(`view-${viewId}`).classList.remove('hidden');
-            document.getElementById(`nav-${viewId}`).classList.add('sidebar-active');
-            
-            const titles = { 'dashboard': 'System Overview', 'jobs': 'Agent Job Execution History', 'backups': 'Backup SLA Monitor', 'updates': 'Update & Patch Management' };
-            document.getElementById('header-title').innerText = titles[viewId];
+            document.getElementById(`view-${v}`).classList.remove('hidden');
+            document.getElementById(`nav-${v}`).classList.add('sidebar-active');
+            const titles = { 'dashboard': 'System Overview', 'jobs': 'Agent Job History', 'backups': 'Backup SLA Monitor', 'updates': 'Update & Patch Management' };
+            document.getElementById('header-title').innerText = titles[v];
+            if(v === 'backups' || v === 'updates') refreshTables();
         }
 
-        const badge = (stat) => {
-            if(stat==='Failed' || stat==='CRITICAL' || stat==='Critical' || stat==='High') return 'text-red-600 border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800';
-            if(stat==='Succeeded' || stat==='HEALTHY' || stat==='Resolved' || stat==='None') return 'text-emerald-600 border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800';
-            return 'text-amber-600 border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800';
-        };
-        
-        const jobsData = [
-            { name: "DBA - Daily Index Optimize", cat: "Maintenance", last: "01:00 AM", next: "Tomorrow", out: "Succeeded" },
-            { name: "HR_Data_Log_Backup_15Min", cat: "Backup", last: "10:00 AM", next: "10:15 AM", out: "Failed" },
-        ];
-        document.getElementById('jobs-body').innerHTML = jobsData.map(j => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50"><td class="px-4 py-3 font-semibold text-jadeBlue">${j.name}</td><td class="px-4 py-3 text-slate-500">${j.cat}</td><td class="px-4 py-3">${j.last}</td><td class="px-4 py-3">${j.next}</td><td class="px-4 py-3"><span class="px-2 py-0.5 text-[10px] font-semibold rounded ${badge(j.out)}">${j.out}</span></td></tr>`).join('');
-
-        function renderBackups() {
-            const typeF = document.getElementById('filter-bkp-type').value;
-            const statF = document.getElementById('filter-bkp-status').value;
-
-            const filtered = allBackupsData.filter(b => 
-                (typeF === 'ALL' || b.type === typeF) && 
-                (statF === 'ALL' || b.status === statF) &&
-                (currentInstanceId === 'ALL' || b.instance === currentInstanceId)
-            );
-            
-            document.getElementById('backups-body').innerHTML = filtered.map((b) => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50"><td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300">${b.instance}</td><td class="px-4 py-3 font-semibold text-jadeBlue">${b.db}</td><td class="px-4 py-3 font-mono text-[10px]">${b.type}</td><td class="px-4 py-3 text-slate-500">${b.date}</td><td class="px-4 py-3 font-mono text-[10px] text-slate-400">${b.target}</td><td class="px-4 py-3"><span class="px-2 py-0.5 text-[10px] font-semibold rounded ${badge(b.status)}">${b.status}</span></td><td class="px-4 py-3">${b.status === 'CRITICAL' ? `<button onclick="showBackupRecommendation('${b.errorCode}')" class="text-[10px] text-jadeBlue hover:underline font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">View AI Fix</button>` : ''}</td></tr>`).join('');
+        async function refreshTables() {
+            const b = await (await fetch('/api/backups')).json();
+            document.getElementById('backups-body').innerHTML = b.map(x => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50 transition-colors"><td class="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">${x.instance}</td><td class="px-6 py-4 font-bold text-jadeBlue">${x.db}</td><td class="px-6 py-4 font-mono text-[10px]">${x.type}</td><td class="px-6 py-4 text-slate-500 font-medium">${x.date}</td><td class="px-6 py-4 text-slate-400 font-mono text-[10px]">${x.target}</td><td class="px-6 py-4"><span class="px-2 py-0.5 rounded-full font-black text-[9px] uppercase ${x.status === 'HEALTHY' ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}">${x.status}</span></td><td class="px-6 py-4"><button class="text-[9px] font-black uppercase text-jadeBlue bg-jadeBlue/5 px-2 py-1 rounded">Fix</button></td></tr>`).join('');
+            const u = await (await fetch('/api/updates')).json();
+            document.getElementById('updates-body').innerHTML = u.map(x => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50 transition-colors"><td class="px-6 py-4 font-bold text-jadeBlue">${x.instance}</td><td class="px-6 py-4 font-mono text-xs opacity-70">${x.current_version}</td><td class="px-6 py-4 font-black text-jadeBlue">${x.latest_version}</td><td class="px-6 py-4 text-slate-500 font-medium">${x.patch_name}</td><td class="px-6 py-4 text-center"><span class="px-2 py-0.5 rounded-full font-black text-[9px] uppercase ${badge(x.severity)}">${x.severity}</span></td><td class="px-6 py-4 text-center"><button class="bg-jadeBlue hover:bg-jadeDark text-white text-[9px] px-3 py-1.5 rounded font-black shadow-sm uppercase">Download</button></td></tr>`).join('');
         }
 
-        // --- UPDATED RENDER FOR DOWNLOAD PATCH ANCHOR TAG ---
-        function renderUpdates() {
-            const filtered = allUpdatesData.filter(u => currentInstanceId === 'ALL' || u.instance === currentInstanceId);
-            document.getElementById('updates-body').innerHTML = filtered.map((u) => `
-                <tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50">
-                    <td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-300">${u.instance}</td>
-                    <td class="px-4 py-3 font-mono text-xs">${u.current_version}</td>
-                    <td class="px-4 py-3 font-mono text-xs text-jadeBlue font-bold">${u.latest_version}</td>
-                    <td class="px-4 py-3 text-slate-500">${u.patch_name}</td>
-                    <td class="px-4 py-3"><span class="px-2 py-0.5 text-[10px] font-semibold rounded ${badge(u.severity)}">${u.severity}</span></td>
-                    <td class="px-4 py-3 text-center">
-                        ${u.patch_available 
-                            ? `<a href="${u.download_link}" target="_blank" class="bg-jadeBlue hover:bg-jadeDark text-white text-[10px] px-3 py-1.5 rounded font-bold shadow-sm inline-block no-underline transition-colors border border-transparent">Download Patch</a>` 
-                            : '<span class="text-xs text-slate-400 italic">Up to date</span>'}
-                    </td>
-                </tr>
-            `).join('');
-        }
+        // --- Helpers ---
+        function setStep(idx) { ['pb-observe', 'pb-reason', 'pb-act', 'pb-verify'].forEach((id, i) => { const el = document.getElementById(id); el.className = `w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 ${i <= idx ? 'bg-jadeBlue text-white shadow-xl scale-110 border-2 border-white' : 'bg-gray-200 dark:bg-slate-700 text-gray-500'}`; }); }
+        function updateGlobalStatus(isErr) { const el = document.getElementById('global-status'); if(isErr) { el.className = "flex items-center gap-2 text-xs font-bold text-red-700 bg-red-50 dark:bg-red-900/20 px-4 py-1.5 border border-red-200 dark:border-red-800 rounded shadow-sm"; document.getElementById('status-text').innerText = "EXCEPTION DETECTED"; document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"; } else { el.className = "flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 px-4 py-1.5 border border-emerald-200 dark:border-emerald-800 rounded shadow-sm"; document.getElementById('status-text').innerText = "ALL SYSTEMS OPERATIONAL"; document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-emerald-500"; } }
+        function resetUI() { document.querySelectorAll('[id^=metric-]').forEach(el => el.classList.remove('text-red-500')); const d = document.getElementById('disk-status-label'); if(d) { d.innerText = 'Optimal'; d.classList.replace('text-red-600', 'text-emerald-600'); } }
+        function badge(s) { return s === 'High' || s === 'Critical' || s === 'Failed' ? 'text-red-600 border border-red-200 bg-red-50 dark:bg-red-900/10 dark:border-red-800' : 'text-emerald-600 border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/10 dark:border-emerald-800'; }
+        function logTerminal(m) { const t = document.getElementById('terminal'); t.innerHTML += `<div class="mb-1 text-[11px]"><span class="text-slate-600 mr-2">[${new Date().toLocaleTimeString()}]</span> ${m}</div>`; t.scrollTop = t.scrollHeight; }
+        function handleTerminalInput(e) { if(e.key === 'Enter') { const t = document.getElementById('terminal'); t.innerHTML += `<div class="mb-1 text-[#9cdcfe]">> ${e.target.value}</div>`; if(e.target.value.toLowerCase().includes('status')) socket.emit('execute-skill', {skill: 'Get-SQLTelemetry.ps1', params: ''}); e.target.value = ""; t.scrollTop = t.scrollHeight; } }
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+        function resizeCopilot(m) { const p = document.getElementById('copilot-panel'), b = document.getElementById('btn-restore-copilot'), c = document.getElementById('copilot-body'); if(m === 'maximize' && copilotState === 'maximized') m = 'restore'; copilotState = m; p.classList.remove('w-[400px]', 'w-[80vw]', 'hidden', 'h-[49px]', 'h-full', 'absolute', 'bottom-0', 'right-0'); c.classList.remove('hidden'); b.classList.add('hidden'); if(m === 'maximize') { p.classList.add('w-[80vw]', 'h-full', 'absolute', 'right-0'); } else if(m === 'minimize') { p.classList.add('w-[400px]', 'h-[49px]', 'absolute', 'bottom-0', 'right-0'); c.classList.add('hidden'); } else if(m === 'collapse') { p.classList.add('hidden'); b.classList.remove('hidden'); } else { p.classList.add('w-[400px]', 'h-full'); copilotState = 'default'; } }
 
-        // --- FIXED COPILOT WINDOW RESIZE LOGIC ---
-        let copilotState = 'default';
-
-        function resizeCopilot(mode) {
-            const panel = document.getElementById('copilot-panel');
-            const btn = document.getElementById('btn-restore-copilot');
-            const body = document.getElementById('copilot-body');
-
-            // Handle toggle mechanism if maximize is clicked while already maximized
-            if (mode === 'maximize' && copilotState === 'maximized') {
-                mode = 'restore';
-            }
-
-            copilotState = mode;
-
-            // Remove all altering layout classes first
-            panel.classList.remove('w-[400px]', 'w-[80vw]', 'hidden', 'h-[49px]', 'h-full', 'absolute', 'bottom-0', 'right-0');
-            body.classList.remove('hidden');
-            btn.classList.add('hidden');
-
-            if (mode === 'maximize') {
-                panel.classList.add('w-[80vw]', 'h-full', 'absolute', 'right-0');
-            }
-            else if (mode === 'minimize') {
-                panel.classList.add('w-[400px]', 'h-[49px]', 'absolute', 'bottom-0', 'right-0');
-                body.classList.add('hidden');
-            }
-            else if (mode === 'collapse') {
-                panel.classList.add('hidden');
-                btn.classList.remove('hidden');
-            }
-            else { 
-                // 'restore' back to default docked state
-                panel.classList.add('w-[400px]', 'h-full');
-                copilotState = 'default';
-            }
-        }
-
+        // Drilldown Logic
         const drilldownData = {
-            'cpu': { title: "Active Queries & Block Chains", head: "<tr><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>SPID</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Status</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>SQL Command</th></tr>", body: "<tr><td class='py-4 pr-4 font-mono'>54</td><td class='py-4 pr-4 text-red-600 font-bold'>RUNNING (BLK)</td><td class='py-4 pr-4 text-[10px] font-mono text-gray-500'>SELECT * FROM Orders CROSS JOIN Customers</td></tr>" },
+            'cpu': { title: "Active Queries & Block Chains", head: "<tr><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>SPID</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Status</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>SQL Command</th></tr>", body: "<tr><td class='py-4 pr-4 font-mono text-jadeBlue'>54</td><td class='py-4 pr-4 text-red-600 font-bold'>RUNNING (BLK)</td><td class='py-4 pr-4 text-[10px] font-mono text-gray-500'>SELECT * FROM Orders CROSS JOIN Customers</td></tr>" },
             'disk': { title: "All Volume Telemetry", head: "<tr><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Drive</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Free Space</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Capacity Status</th></tr>", body: "<tr><td class='py-4 pr-4 font-bold text-gray-800 dark:text-slate-200'>F:</td><td class='py-4 pr-4 text-jadeBlue font-bold'>125.0 GB</td><td class='py-4 pr-4'><div class='w-full bg-gray-200 h-1.5 rounded'><div class='bg-jadeBlue h-1.5 rounded' style='width: 40%'></div></div></td></tr>" },
             'tempdb': { title: "TempDB File Allocation", head: "<tr><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>File Name</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Used (%)</th></tr>", body: "<tr><td class='py-4 pr-4 font-bold text-gray-800 dark:text-slate-200'>tempdev</td><td class='py-4 pr-4 text-emerald-600 font-bold'>15%</td></tr>" },
             'index': { title: "Index Fragmentation Monitor", head: "<tr><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Database</th><th class='py-3 pr-4 font-bold text-gray-800 dark:text-slate-200'>Frag %</th></tr>", body: "<tr><td class='py-4 pr-4 font-bold text-gray-800 dark:text-slate-200'>Finance_DB</td><td class='py-4 pr-4 font-bold text-emerald-600'>1.2%</td></tr>" }
@@ -385,17 +356,7 @@
             document.getElementById('drilldown-container').classList.remove('hidden');
         }
 
-        function showBackupRecommendation(code) { /* Maintains existing logic */ }
-        const auditData = [{ time: "08:15 AM", target: "Sales_Prod", anomaly: "High VLF Count (>150)", out: "Resolved", detail_issue: "Transaction log grew excessively...", detail_fix: "Executed Fix-VLF.ps1" }];
-        document.getElementById('audit-body').innerHTML = auditData.map((a, idx) => `<tr class="hover:bg-jadeLight dark:hover:bg-slate-700/50"><td class="px-4 py-3 font-mono text-[10px] text-slate-500">${a.time}</td><td class="px-4 py-3 font-semibold text-jadeBlue">${a.target}</td><td class="px-4 py-3 text-slate-600 dark:text-slate-300">${a.anomaly}</td><td class="px-4 py-3"><span class="text-emerald-600 font-semibold">${a.out}</span></td><td class="px-4 py-3 text-center"><button onclick="viewAutofixDetail(${idx})" class="text-[10px] text-jadeBlue hover:underline font-semibold bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">View Deep Dive</button></td></tr>`).join('');
-        function viewAutofixDetail(idx) { document.getElementById('autofix-issue').innerText = auditData[idx].detail_issue; document.getElementById('autofix-remediation').innerText = auditData[idx].detail_fix; document.getElementById('autofix-detail-modal').classList.remove('hidden'); }
-        function setStep(currentStepIndex) { /* Maintains existing logic */ }
-        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
-        function logTerminal(msg) { const t = document.getElementById('terminal'); t.innerHTML += `<div class="mb-1"><span class="text-[#858585]">[${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})}]</span> <span class="text-[#d4d4d4]">${msg}</span></div>`; t.scrollTop = t.scrollHeight; }
-        socket.on('log', function(msg) { logTerminal(msg.data); });
-        function handleTerminalInput(e) { if(e.key === 'Enter') { const t = document.getElementById('terminal'); t.innerHTML += `<div class="mb-1 text-[#9cdcfe]">>> ${e.target.value}</div>`; e.target.value = ""; t.scrollTop = t.scrollHeight; setTimeout(() => logTerminal("Command acknowledged. Executing..."), 1000); } }
-        function triggerAnomaly(type) { /* Maintains existing logic */ }
-        function approveAction(cardType, skill, params) { /* Maintains existing logic */ }
+        window.onload = () => { fetchInstances(); refreshTables(); };
     </script>
 </body>
 </html>

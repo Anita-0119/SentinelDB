@@ -1,0 +1,54 @@
+{
+    "remediation_skills": {
+        "CRITICAL_DISK": {
+            "diagnosis": "Volume capacity reached critical threshold. Immediate action required to prevent service stoppage.",
+            "remediation_steps": ["Truncate transaction logs", "Transfer legacy .bak files to Archive Tier (Z: drive)"],
+            "skill": "Fix-DiskAlert.ps1",
+            "parameter_map": "-Drive {drive} -BackupDir {backup_dir}"
+        },
+        "CRITICAL_CPU": {
+            "diagnosis": "High CPU utilization detected. Active blocking chain or rogue process identified.",
+            "remediation_steps": ["Verify admin authorization", "Terminate offending SPID", "Roll back uncommitted transactions"],
+            "skill": "Fix-KillSession.ps1",
+            "parameter_map": "-SPID {spid} -ServerInstance {instance}"
+        },
+        "CRITICAL_TEMPDB": {
+            "diagnosis": "TempDB data file allocation exceeded safety threshold due to orphaned objects.",
+            "remediation_steps": ["Query sys.dm_db_file_space_usage", "Drop staging ETL objects", "Shrink tempdev file"],
+            "skill": "Fix-TempDB.ps1",
+            "parameter_map": "-ServerInstance {instance}"
+        },
+        "MAINTENANCE_INDEX": {
+            "diagnosis": "Index fragmentation detected above 20% on core tables.",
+            "remediation_steps": ["Scan physical stats", "Execute ONLINE REBUILD", "Update query optimizer thresholds via sp_updatestats"],
+            "skill": "Optimize-Indexes.ps1",
+            "parameter_map": "-Database {db}"
+        }
+    },
+    "diagnostic_skills": {
+        "DEEP_DIAGNOSTICS": {
+            "description": "Performs high-level analysis of session requests and blocking IDs.",
+            "query_target": "sys.dm_exec_requests",
+            "skill": "Get-DeepDiagnostics.ps1",
+            "parameter_map": "-ServerInstance {instance}"
+        },
+        "LIVE_JOBS": {
+            "description": "Queries SQL Agent for current status and outcomes of scheduled jobs.",
+            "query_target": "msdb.dbo.sysjobs",
+            "skill": "Get-LiveJobs.ps1",
+            "parameter_map": "-ServerInstance {instance}"
+        }
+    },
+    "monitoring_skills": {
+        "LIVE_TELEMETRY": {
+            "description": "Captures real-time CPU, Free Disk Space, and Job Failures.",
+            "skill": "Get-SQLtelementry-live.ps1",
+            "parameter_map": "-ServerInstance {instance}"
+        },
+        "HEALTH_CHECK": {
+            "description": "Standardized health check utilizing Ring Buffers for CPU and disk volume checks.",
+            "skill": "Get-SQLTelemetry.ps1",
+            "parameter_map": "-ServerInstance {instance}"
+        }
+    }
+}

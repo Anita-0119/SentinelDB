@@ -13,5 +13,10 @@
         "id": "prod-sql-02",
         "name": "PROD-SQL-02",
         "status": "WARNING"
+    },
+    {
+        "id": "PROD-sql-03",
+        "name": "PROD-3",
+        "status": "ONLINE"
     }
 ]

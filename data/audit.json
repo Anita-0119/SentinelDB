@@ -1,0 +1,122 @@
+[
+    {
+        "time": "12:19 PM",
+        "target": "Inventory_Master",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:17 PM",
+        "target": "Finance_DB",
+        "anomaly": "Implicit Conversion Overhead",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:15 PM",
+        "target": "Inventory_Master",
+        "anomaly": "Stale Statistics Detected",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:13 PM",
+        "target": "Finance_DB",
+        "anomaly": "Stale Statistics Detected",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:11 PM",
+        "target": "Finance_DB",
+        "anomaly": "Implicit Conversion Overhead",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:09 PM",
+        "target": "HR_Data",
+        "anomaly": "Stale Statistics Detected",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:07 PM",
+        "target": "Sales_Prod",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:05 PM",
+        "target": "Inventory_Master",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:03 PM",
+        "target": "Finance_DB",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "12:01 PM",
+        "target": "Finance_DB",
+        "anomaly": "Stale Statistics Detected",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "11:59 AM",
+        "target": "Inventory_Master",
+        "anomaly": "Buffer Cache Pressure",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "11:57 AM",
+        "target": "Finance_DB",
+        "anomaly": "TempDB Version Store Growth",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "11:55 AM",
+        "target": "Finance_DB",
+        "anomaly": "Buffer Cache Pressure",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "11:53 AM",
+        "target": "Inventory_Master",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    },
+    {
+        "time": "11:51 AM",
+        "target": "Inventory_Master",
+        "anomaly": "High VLF Count (>150)",
+        "out": "Resolved",
+        "detail_issue": "Sub-optimal system parameter detected.",
+        "detail_fix": "AI Agent executed automated tuning module."
+    }
+]
